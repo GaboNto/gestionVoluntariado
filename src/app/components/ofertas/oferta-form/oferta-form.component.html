@@ -1,10 +1,28 @@
-<h2>Publicar Oferta de Voluntariado</h2>
-<form (ngSubmit)="publicarOferta()">
-  <label>Descripción: <input [(ngModel)]="oferta.descripcion" name="descripcion" required></label><br>
-  <label>Lugar: <input [(ngModel)]="oferta.lugar" name="lugar" required></label><br>
-  <label>Fecha: <input type="date" [(ngModel)]="oferta.fecha" name="fecha" required></label><br>
-  <label>Cupos: <input type="number" [(ngModel)]="oferta.cupos" name="cupos" required></label><br>
-  <label>Requisitos: <input [(ngModel)]="oferta.requisitos" name="requisitos"></label><br>
-  <label>Fecha Límite: <input type="date" [(ngModel)]="oferta.fechaLimite" name="fechaLimite" required></label><br>
-  <button type="submit">Publicar</button>
+<h2 class="text-center my-4">Publicar Oferta de Voluntariado</h2>
+<form (ngSubmit)="publicarOferta()" class="container border rounded p-4 shadow-sm bg-light">
+  <div class="mb-3">
+    <label class="form-label">Descripción</label>
+    <input class="form-control" [(ngModel)]="oferta.descripcion" name="descripcion" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Lugar</label>
+    <input class="form-control" [(ngModel)]="oferta.lugar" name="lugar" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Fecha</label>
+    <input type="date" class="form-control" [(ngModel)]="oferta.fecha" name="fecha" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Cupos</label>
+    <input type="number" class="form-control" [(ngModel)]="oferta.cupos" name="cupos" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Requisitos</label>
+    <input class="form-control" [(ngModel)]="oferta.requisitos" name="requisitos">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Fecha Límite</label>
+    <input type="date" class="form-control" [(ngModel)]="oferta.fechaLimite" name="fechaLimite" required>
+  </div>
+  <button type="submit" class="btn btn-primary w-100">Publicar</button>
 </form>

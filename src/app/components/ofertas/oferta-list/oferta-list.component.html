@@ -1,6 +1,19 @@
-<h2>Ofertas Publicadas</h2>
-<ul>
-  <li *ngFor="let o of servicio.obtenerOfertas()">
-    <strong>{{ o.descripcion }}</strong> - {{ o.lugar }} ({{ o.fecha }}) - Cupos: {{ o.cupos }}
-  </li>
-</ul>
+<h2 class="text-center my-4">Ofertas Publicadas</h2>
+<div class="container">
+  <div class="row g-3">
+    <div class="col-md-6 col-lg-4" *ngFor="let o of servicio.obtenerOfertas()">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ o.descripcion }}</h5>
+          <p class="card-text">
+            <strong>Lugar:</strong> {{ o.lugar }}<br>
+            <strong>Fecha:</strong> {{ o.fecha }}<br>
+            <strong>Cupos:</strong> {{ o.cupos }}<br>
+            <strong>Requisitos:</strong> {{ o.requisitos || 'Ninguno' }}<br>
+            <strong>Fecha límite:</strong> {{ o.fechaLimite }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

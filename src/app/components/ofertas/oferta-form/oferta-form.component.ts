@@ -26,7 +26,7 @@ export class OfertaFormComponent {
       descripcion: '',
       lugar: '',
       fecha: '',
-      cupos: 0,
+      cupos: 1,
       requisitos: '',
       fechaLimite: ''
     };
