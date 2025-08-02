@@ -1,0 +1,6 @@
+<h2>Ofertas Publicadas</h2>
+<ul>
+  <li *ngFor="let o of servicio.obtenerOfertas()">
+    <strong>{{ o.descripcion }}</strong> - {{ o.lugar }} ({{ o.fecha }}) - Cupos: {{ o.cupos }}
+  </li>
+</ul>

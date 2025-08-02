@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { OfertaFormComponent } from './components/ofertas/oferta-form/oferta-form.component';
+import { OfertaListComponent } from './components/ofertas/oferta-list/oferta-list.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [OfertaFormComponent, OfertaListComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'gestionVoluntariado';
+    title = 'gestionVoluntariado';
 }
