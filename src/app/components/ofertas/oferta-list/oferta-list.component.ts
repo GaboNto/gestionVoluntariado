@@ -1,13 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OfertaService } from '../../oferta.service';
+import { HttpClientModule } from '@angular/common/http';
+import { OfertaService, Oferta } from '../oferta.service';
 
 @Component({
   selector: 'app-oferta-list',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './oferta-list.component.html'
+  imports: [CommonModule, HttpClientModule],
+  templateUrl: './oferta-list.component.html',
+  styleUrls: ['./oferta-list.component.css']
 })
-export class OfertaListComponent {
-  constructor(public servicio: OfertaService) {}
+export class OfertaListComponent implements OnInit {
+  servicio = inject(OfertaService);
+  ofertas: Oferta[] = [];
+
+  ngOnInit() {
+    this.servicio.getOfertas().subscribe({
+      next: (res) => {
+        this.ofertas = res;
+      },
+      error: (err) => {
+        console.error('Error al obtener ofertas', err);
+      }
+    });
+  }
 }

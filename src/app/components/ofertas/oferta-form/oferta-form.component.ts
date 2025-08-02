@@ -1,14 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { OfertaService, Oferta } from '../../oferta.service';
+import { HttpClientModule } from '@angular/common/http';
+import { OfertaService, Oferta } from '../oferta.service';
 
 @Component({
   selector: 'app-oferta-form',
   standalone: true,
-  imports: [FormsModule],
-  templateUrl: './oferta-form.component.html'
+  imports: [FormsModule, HttpClientModule],
+  templateUrl: './oferta-form.component.html',
+  styleUrls: ['./oferta-form.component.css']
 })
 export class OfertaFormComponent {
+  private servicio = inject(OfertaService);
+
   oferta: Oferta = {
     descripcion: '',
     lugar: '',
@@ -18,17 +22,23 @@ export class OfertaFormComponent {
     fechaLimite: ''
   };
 
-  constructor(private servicio: OfertaService) {}
-
   publicarOferta() {
-    this.servicio.agregarOferta({ ...this.oferta });
-    this.oferta = {
-      descripcion: '',
-      lugar: '',
-      fecha: '',
-      cupos: 1,
-      requisitos: '',
-      fechaLimite: ''
-    };
+    this.servicio.publicarOferta(this.oferta).subscribe({
+      next: () => {
+        alert('Oferta publicada con éxito');
+        this.oferta = {
+          descripcion: '',
+          lugar: '',
+          fecha: '',
+          cupos: 0,
+          requisitos: '',
+          fechaLimite: ''
+        };
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Error al publicar la oferta');
+      }
+    });
   }
 }
