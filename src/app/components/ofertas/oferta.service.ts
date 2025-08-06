@@ -31,7 +31,6 @@ export class OfertaService {
     });
   }
 
-  // GET: Obtener ofertas registradas
   getOfertas(): Observable<Oferta[]> {
     return this.http.get<Oferta[]>(this.apiUrl);
   }
