@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 // Conexión a MySQL
 const db = mysql.createConnection({
   host: 'localhost',
+  port: 3310,
   user: 'root',
   password: '',
   database: 'gestion_voluntariado'
