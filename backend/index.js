@@ -27,19 +27,14 @@ db.connect((err) => {
 });
 
 // Ruta para guardar una oferta (POST)
-app.post('/api/ofertas', (req, res) => {
-  const { descripcion, lugar, fecha, cupos, requisitos, fecha_limite } = req.body;
+app.post('/api/registrar/oferta', (req, res) => {
+  const  oferta =  { descripcion, lugar, fecha, cupos, requisitos, fecha_limite } = req.body;
 
-  const sql = `INSERT INTO oferta (descripcion, lugar, fecha, cupos, requisitos, fecha_limite) 
-               VALUES (?, ?, ?, ?, ?, ?)`;
+  const query = `INSERT INTO oferta (descripcion, lugar, fecha_realizacion, cupos,
+  requisitos_especificos, fecha_limite) VALUES (?, ?, ?, ?, ?, ?)`;
 
-  db.query(sql, [descripcion, lugar, fecha, cupos, requisitos, fecha_limite], (err, result) => {
-    if (err) {
-      console.error('Error al insertar:', err);
-      res.status(500).json({ error: 'Error al insertar la oferta' });
-    } else {
+  db.query(query, oferta, (result) => {
       res.status(200).json({ message: 'Oferta guardada exitosamente', id: result.insertId });
-    }
   });
 });
 
