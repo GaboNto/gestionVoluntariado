@@ -9,8 +9,8 @@
     <input class="form-control" [(ngModel)]="oferta.lugar" name="lugar" required>
   </div>
   <div class="mb-3">
-    <label class="form-label">Fecha</label>
-    <input type="date" class="form-control" [(ngModel)]="oferta.fecha" name="fecha" required>
+    <label class="form-label">Fecha de Realizacion</label>
+    <input type="date" class="form-control" [(ngModel)]="oferta.fecha_realizacion" name="fecha_realizacion" required>
   </div>
   <div class="mb-3">
     <label class="form-label">Cupos</label>
@@ -18,11 +18,11 @@
   </div>
   <div class="mb-3">
     <label class="form-label">Requisitos</label>
-    <input class="form-control" [(ngModel)]="oferta.requisitos" name="requisitos">
+    <input class="form-control" [(ngModel)]="oferta.requisitos_especificos" name="requisitos_especificos">
   </div>
   <div class="mb-3">
     <label class="form-label">Fecha Límite</label>
-    <input type="date" class="form-control" [(ngModel)]="oferta.fechaLimite" name="fechaLimite" required>
+    <input type="date" class="form-control" [(ngModel)]="oferta.fecha_limite" name="fecha_limite" required>
   </div>
   <button type="submit" class="btn btn-primary w-100">Publicar</button>
 </form>

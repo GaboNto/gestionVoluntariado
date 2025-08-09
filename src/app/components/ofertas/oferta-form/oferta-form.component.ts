@@ -16,10 +16,10 @@ export class OfertaFormComponent {
   oferta: Oferta = {
     descripcion: '',
     lugar: '',
-    fecha: '',
+    fecha_realizacion: '',
     cupos: 0,
-    requisitos: '',
-    fechaLimite: ''
+    requisitos_especificos: '',
+    fecha_limite: ''
   };
 
   publicarOferta() {
@@ -29,10 +29,10 @@ export class OfertaFormComponent {
         this.oferta = {
           descripcion: '',
           lugar: '',
-          fecha: '',
+          fecha_realizacion: '',
           cupos: 0,
-          requisitos: '',
-          fechaLimite: ''
+          requisitos_especificos: '',
+          fecha_limite: ''
         };
       },
       error: (err) => {

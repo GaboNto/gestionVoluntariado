@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 export interface Oferta {
   descripcion: string;
   lugar: string;
-  fecha: string;
+  fecha_realizacion: string;
   cupos: number;
-  requisitos?: string;
-  fechaLimite: string;
+  requisitos_especificos?: string;
+  fecha_limite: string;
 }
 
 @Injectable({
@@ -24,10 +24,10 @@ export class OfertaService {
     return this.http.post<{ message: string; id: number }>(this.apiUrl, {
       descripcion: oferta.descripcion,
       lugar: oferta.lugar,
-      fecha: oferta.fecha,
+      fecha_realizacion: oferta.fecha_realizacion,
       cupos: oferta.cupos,
-      requisitos: oferta.requisitos,
-      fecha_limite: oferta.fechaLimite
+      requisitos_especificos: oferta.requisitos_especificos,
+      fecha_limite: oferta.fecha_limite
     });
   }
 

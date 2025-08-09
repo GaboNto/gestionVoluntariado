@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 // Conexión a MySQL
 const db = mysql.createConnection({
   host: 'localhost',
-  port: 3310,
+  port: 3306,
   user: 'root',
   password: '',
   database: 'gestion_voluntariado'
@@ -28,10 +28,9 @@ db.connect((err) => {
 
 // Ruta para guardar una oferta (POST)
 app.post('/api/registrar/oferta', (req, res) => {
-  const  oferta =  { descripcion, lugar, fecha, cupos, requisitos, fecha_limite } = req.body;
+  const  oferta =  { descripcion, lugar, fecha_realizacion, cupos, requisitos_especificos, fecha_limite, estado } = req.body;
 
-  const query = `INSERT INTO oferta (descripcion, lugar, fecha_realizacion, cupos,
-  requisitos_especificos, fecha_limite) VALUES (?, ?, ?, ?, ?, ?)`;
+  const query = `INSERT INTO oferta (descripcion, lugar, fecha_realizacion, cupos, requisitos_especificos, fecha_limite, estado) VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
   db.query(query, oferta, (result) => {
       res.status(200).json({ message: 'Oferta guardada exitosamente', id: result.insertId });

@@ -7,10 +7,10 @@
           <h5 class="card-title">{{ o.descripcion }}</h5>
           <p class="card-text">
             <strong>Lugar:</strong> {{ o.lugar }}<br>
-            <strong>Fecha:</strong> {{ o.fecha }}<br>
+            <strong>Fecha:</strong> {{ o.fecha_realizacion }}<br>
             <strong>Cupos:</strong> {{ o.cupos }}<br>
-            <strong>Requisitos:</strong> {{ o.requisitos || 'Ninguno' }}<br>
-            <strong>Fecha límite:</strong> {{ o.fechaLimite }}
+            <strong>Requisitos:</strong> {{ o.requisitos_especificos || 'Ninguno' }}<br>
+            <strong>Fecha límite:</strong> {{ o.fecha_limite }}
           </p>
         </div>
       </div>
