@@ -1,28 +1,53 @@
-<h2 class="text-center my-4">Publicar Oferta de Voluntariado</h2>
-<form (ngSubmit)="publicarOferta()" class="container border rounded p-4 shadow-sm bg-light">
-  <div class="mb-3">
-    <label class="form-label">Descripción</label>
-    <input class="form-control" [(ngModel)]="oferta.descripcion" name="descripcion" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Lugar</label>
-    <input class="form-control" [(ngModel)]="oferta.lugar" name="lugar" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Fecha de Realizacion</label>
-    <input type="date" class="form-control" [(ngModel)]="oferta.fecha_realizacion" name="fecha_realizacion" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Cupos</label>
-    <input type="number" class="form-control" [(ngModel)]="oferta.cupos" name="cupos" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Requisitos</label>
-    <input class="form-control" [(ngModel)]="oferta.requisitos_especificos" name="requisitos_especificos">
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Fecha Límite</label>
-    <input type="date" class="form-control" [(ngModel)]="oferta.fecha_limite" name="fecha_limite" required>
-  </div>
-  <button type="submit" class="btn btn-primary w-100">Publicar</button>
-</form>
+<div class="oferta-layout">
+  <header class="topbar">
+    <h1 class="titulo-app">Secretaría Académica</h1>
+  </header>
+
+  <main class="contenido">
+    <h2 class="titulo-form">Formulario de Oferta</h2>
+
+    <section class="panel">
+      <h3 class="panel-title">Rellenar datos</h3>
+
+      <form class="oferta-form" (ngSubmit)="publicarOferta()">
+        <div class="campo">
+          <label for="descripcion">descripcion</label>
+          <input id="descripcion" name="descripcion" [(ngModel)]="oferta.descripcion" required />
+        </div>
+
+        <div class="campo">
+          <label for="lugar">lugar</label>
+          <input id="lugar" name="lugar" [(ngModel)]="oferta.lugar" required />
+        </div>
+
+        <div class="campo">
+          <label for="cupos">cupos</label>
+          <input id="cupos" name="cupos" type="number" [(ngModel)]="oferta.cupos" required />
+        </div>
+
+        <div class="campo">
+          <label for="requisitos">requisitos especificos</label>
+          <input id="requisitos" name="requisitos_especificos" [(ngModel)]="oferta.requisitos_especificos" />
+        </div>
+
+        <div class="campo">
+          <label for="fechaReal">fecha realizacion</label>
+          <input id="fechaReal" name="fecha_realizacion" type="date" [(ngModel)]="oferta.fecha_realizacion" required />
+        </div>
+
+        <div class="campo">
+          <label for="fechaLim">fecha limite</label>
+          <input id="fechaLim" name="fecha_limite" type="date" [(ngModel)]="oferta.fecha_limite" required />
+        </div>
+
+        <button type="submit" class="btn-registrar">Registrar oferta</button>
+      </form>
+    </section>
+
+    <div class="flecha">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M13 5l7 7-7 7M4 12h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </main>
+</div>

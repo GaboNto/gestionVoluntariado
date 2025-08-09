@@ -1,4 +1,102 @@
-form {
-  max-width: 600px;
-  margin: 0 auto;
+:host {
+  display: flex;
+  justify-content: center;   
+  align-items: center;       
+  min-height: 50vh;         
+  background: #fff;        
+  margin: 0;
 }
+
+.oferta-layout {
+  height: 750px; 
+  width: 1000px;  
+  background: #08699A;
+  color: #0a0a0a;
+  font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+  position: relative;
+}
+
+body {
+  background: #fff;
+}
+
+.topbar {
+  padding: 18px 24px 14px;
+  border-bottom: 2px solid rgba(0,0,0,0.35);
+}
+.titulo-app {
+  margin: 0;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.contenido {
+  position: relative;
+  padding: 24px 36px 48px;
+}
+.titulo-form {
+  margin: 12px 0 10px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.panel {
+  max-width: 300px;
+}
+.panel-title {
+  margin: 24px 0 12px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.oferta-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.oferta-form label {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.oferta-form input {
+  height: 28px;
+  padding: 2px 8px;
+  border: 2px solid #e6e6e6;
+  border-radius: 2px;
+  background: #fff;
+  font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+}
+
+.btn-registrar {
+  margin-top: 12px;
+  padding: 6px 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 2px solid #bfbfbf;
+  background: #e9e9e9;
+  color: #000;
+  cursor: pointer;
+  font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+}
+
+.flecha {
+  position: absolute;
+  left: 50%;              
+  bottom: 30px;           
+  transform: translateX(-50%);
+  width: 120px;
+  height: 120px;
+  color: #000;
+  opacity: 0.9;
+}
+.flecha svg { width: 100%; height: 100%; }
+
