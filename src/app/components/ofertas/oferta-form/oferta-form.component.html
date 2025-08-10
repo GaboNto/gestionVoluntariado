@@ -4,9 +4,10 @@
   </header>
 
   <main class="contenido">
-    <h2 class="titulo-form">Formulario de Oferta</h2>
+    <h2 class="titulo-form" *ngIf="estado === 'form'">Formulario de Oferta</h2>
+    <h2 class="titulo-form" *ngIf="estado === 'registrada' || estado === 'publicada'">Oferta registrada</h2>
 
-    <section class="panel">
+    <section class="panel" *ngIf="estado === 'form'">
       <h3 class="panel-title">Rellenar datos</h3>
 
       <form class="oferta-form" (ngSubmit)="publicarOferta()">
@@ -42,6 +43,20 @@
 
         <button type="submit" class="btn-registrar">Registrar oferta</button>
       </form>
+      
+    </section>
+    <section class="panel panel-centro" *ngIf="estado === 'registrada'">
+      <button class="btn-publicar" (click)="confirmarPublicacion()">Publicar oferta</button>
+    </section>
+
+    <section class="panel panel-centro" *ngIf="estado === 'publicada'">
+      <div class="mensaje-publicada">
+        la oferta de voluntariado <strong>{{ ultimaDescripcion || 'registrando' }}</strong> ha sido publicada
+      </div>
+
+      <div class="acciones-final">
+        <button class="btn-registrar" (click)="nuevaOferta()">Registrar otra</button>
+      </div>
     </section>
   </main>
 </div>

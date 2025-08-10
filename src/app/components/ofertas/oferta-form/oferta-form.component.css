@@ -1,23 +1,19 @@
 :host {
   display: flex;
-  justify-content: center;   
-  align-items: center;       
-  min-height: 50vh;         
-  background: #fff;        
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  background: #fff;
   margin: 0;
 }
 
 .oferta-layout {
-  height: 750px; 
-  width: 1000px;  
+  height: 750px;
+  width: 1000px;
   background: #08699A;
   color: #0a0a0a;
   font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
   position: relative;
-}
-
-body {
-  background: #fff;
 }
 
 .topbar {
@@ -33,8 +29,9 @@ body {
 
 .contenido {
   position: relative;
-  padding: 24px 36px 48px;
+  padding: 0;
 }
+
 .titulo-form {
   margin: 12px 0 10px;
   text-align: center;
@@ -42,31 +39,20 @@ body {
   font-weight: 700;
 }
 
-.panel {
-  max-width: 300px;
+.panel { 
+  max-width: 340px; 
+  margin: 30px;
 }
+
 .panel-title {
   margin: 24px 0 12px;
   font-size: 28px;
   font-weight: 700;
 }
 
-.oferta-form {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.campo {
-  display: flex;
-  flex-direction: column;
-}
-
-.oferta-form label {
-  font-size: 18px;
-  margin-bottom: 4px;
-}
-
+.oferta-form { display: flex; flex-direction: column; gap: 14px; }
+.campo { display: flex; flex-direction: column; }
+.oferta-form label { font-size: 18px; margin-bottom: 4px; }
 .oferta-form input {
   height: 28px;
   padding: 2px 8px;
@@ -75,7 +61,6 @@ body {
   background: #fff;
   font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
 }
-
 .btn-registrar {
   margin-top: 12px;
   padding: 6px 12px;
@@ -88,3 +73,30 @@ body {
   font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
 }
 
+.panel-centro {
+  width: 100%;
+  max-width: none;
+  display: grid;
+  place-items: center;
+  padding-top: 40px;
+}
+
+.btn-publicar {
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #bfbfbf;
+  background: #e9e9e9;
+  cursor: pointer;
+}
+
+.mensaje-publicada {
+  color: #fff;
+  border: 2px solid rgba(0,0,0,0.25);
+  background: rgba(0,0,0,0.12);      
+  border-radius: 2px;
+  text-align: center;
+  font-weight: 700;
+  max-width: 540px;
+}
+.acciones-final { margin-top: 16px; }

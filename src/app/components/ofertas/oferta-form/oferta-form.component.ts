@@ -2,34 +2,40 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { OfertaService, Oferta } from '../oferta.service';
+import { CommonModule } from '@angular/common';
+
+type EstadoUI = 'form' | 'registrada' | 'publicada';
 
 @Component({
   selector: 'app-oferta-form',
   standalone: true,
-  imports: [FormsModule, HttpClientModule],
+  imports: [FormsModule, HttpClientModule, CommonModule],
   templateUrl: './oferta-form.component.html',
   styleUrls: ['./oferta-form.component.css']
 })
 export class OfertaFormComponent {
   private servicio = inject(OfertaService);
 
+  estado: EstadoUI = 'form';
+
+  ultimaDescripcion = '';
+  ultimaId?: number;
+
   oferta: Oferta = {
     descripcion: '',
     lugar: '',
-    fecha_realizacion: '',   // <input type="date"> suele dar 'YYYY-MM-DD'
+    fecha_realizacion: '',   // <input type="date"> -> 'YYYY-MM-DD'
     cupos: 0,
     requisitos_especificos: '',
     fecha_limite: ''
   };
 
-  // Normaliza a 'YYYY-MM-DD' (en UTC) por si el control entrega Date u otro formato
+  // Normaliza a 'YYYY-MM-DD' (por si el value no viene en texto)
   private toYMD(value: any): string {
     if (!value) return '';
     if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
-
     const d = new Date(value);
     if (isNaN(d.getTime())) return '';
-
     const y = d.getUTCFullYear();
     const m = String(d.getUTCMonth() + 1).padStart(2, '0');
     const day = String(d.getUTCDate()).padStart(2, '0');
@@ -37,7 +43,6 @@ export class OfertaFormComponent {
   }
 
   publicarOferta() {
-    // Construimos el payload limpiando strings y normalizando fechas/números
     const payload: Oferta = {
       descripcion: this.oferta.descripcion?.trim() || '',
       lugar: this.oferta.lugar?.trim() || '',
@@ -48,22 +53,33 @@ export class OfertaFormComponent {
     };
 
     this.servicio.publicarOferta(payload).subscribe({
-      next: () => {
-        alert('Oferta publicada con éxito');
-        // reset
-        this.oferta = {
-          descripcion: '',
-          lugar: '',
-          fecha_realizacion: '',
-          cupos: 0,
-          requisitos_especificos: '',
-          fecha_limite: ''
-        };
+      next: (res) => {
+        this.ultimaDescripcion = payload.descripcion;
+        this.ultimaId = (res as any)?.id; 
+        this.estado = 'registrada';       
       },
       error: (err) => {
         console.error(err);
-        alert('Error al publicar la oferta');
+        alert('Error al registrar la oferta');
       }
     });
+  }
+
+  confirmarPublicacion() {
+    this.estado = 'publicada';
+  }
+
+  nuevaOferta() {
+    this.estado = 'form';
+    this.oferta = {
+      descripcion: '',
+      lugar: '',
+      fecha_realizacion: '',
+      cupos: 0,
+      requisitos_especificos: '',
+      fecha_limite: ''
+    };
+    this.ultimaDescripcion = '';
+    this.ultimaId = undefined;
   }
 }

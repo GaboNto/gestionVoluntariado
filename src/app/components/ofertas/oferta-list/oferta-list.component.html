@@ -17,4 +17,17 @@
       </div>
     </section>
   </main>
+
+  <div class="detalle-overlay" *ngIf="ofertaSeleccionada" (click)="cerrarDetalle()">
+    <div class="detalle-card" (click)="$event.stopPropagation()">
+      <button class="detalle-cerrar" (click)="cerrarDetalle()" aria-label="Cerrar">×</button>
+
+      <p><strong>Nombre:</strong> {{ ofertaSeleccionada.descripcion }}</p>
+      <p><strong>Área:</strong> {{ ofertaSeleccionada.lugar }}</p>
+      <p><strong>Descripción:</strong> {{ ofertaSeleccionada.descripcion }}</p>
+      <p><strong>Horario:</strong> {{ formatFecha(ofertaSeleccionada.fecha_realizacion) }}</p>
+      <p><strong>Requisitos:</strong> {{ ofertaSeleccionada.requisitos_especificos || '—' }}</p>
+      <p><strong>Cupos:</strong> {{ ofertaSeleccionada.cupos }} voluntarios</p>
+    </div>
+  </div>
 </div>
