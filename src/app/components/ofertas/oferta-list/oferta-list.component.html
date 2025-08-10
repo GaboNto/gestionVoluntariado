@@ -1,19 +1,26 @@
-<h2 class="text-center my-4">Ofertas Publicadas</h2>
-<div class="container">
-  <div class="row g-3">
-    <div class="col-md-6 col-lg-4" *ngFor="let o of ofertas">
-      <div class="card shadow-sm h-100">
-        <div class="card-body">
-          <h5 class="card-title">{{ o.descripcion }}</h5>
-          <p class="card-text">
-            <strong>Lugar:</strong> {{ o.lugar }}<br>
-            <strong>Fecha:</strong> {{ o.fecha_realizacion | date:'dd/MM/yyyy':'UTC' }}<br>
-            <strong>Cupos:</strong> {{ o.cupos }}<br>
-            <strong>Requisitos:</strong> {{ o.requisitos_especificos || 'Ninguno' }}<br>
-            <strong>Fecha límite:</strong> {{ o.fecha_limite | date:'dd/MM/yyyy':'UTC' }}
-          </p>
+<div class="oferta-layout">
+  <header class="topbar">
+    <h1 class="titulo-app">Secretaría Académica</h1>
+  </header>
+
+  <main class="contenido">
+    <h2 class="titulo-form">Ofertas publicadas</h2>
+
+    <section class="panel">
+      <h3 class="panel-subtitle">NUEVAS OFERTAS</h3>
+
+      <div class="lista-ofertas">
+        <div class="item-oferta" *ngFor="let o of ofertas; let i = index">
+          <span class="oferta-nombre">#Oferta {{ i + 1 }}</span>
+          <button class="btn-ver" (click)="verOferta(o)">Ver oferta</button>
         </div>
       </div>
+    </section>
+
+    <div class="flecha">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M13 5l7 7-7 7M4 12h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
-  </div>
+  </main>
 </div>
