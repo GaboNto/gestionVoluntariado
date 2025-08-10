@@ -13,35 +13,80 @@
       <form class="oferta-form" (ngSubmit)="publicarOferta()">
         <div class="campo">
           <label for="descripcion">descripcion</label>
-          <input id="descripcion" name="descripcion" [(ngModel)]="oferta.descripcion" required />
+          <input 
+            id="descripcion" 
+            name="descripcion" 
+            [(ngModel)]="oferta.descripcion" 
+            required 
+          />
         </div>
 
         <div class="campo">
           <label for="lugar">lugar</label>
-          <input id="lugar" name="lugar" [(ngModel)]="oferta.lugar" required />
+          <input 
+            id="lugar" 
+            name="lugar" 
+            [(ngModel)]="oferta.lugar" 
+            required 
+          />
         </div>
 
         <div class="campo">
           <label for="cupos">cupos</label>
-          <input id="cupos" name="cupos" type="number" [(ngModel)]="oferta.cupos" required />
+          <input 
+            id="cupos" 
+            name="cupos" 
+            type="number" 
+            [(ngModel)]="oferta.cupos" 
+            required 
+            min="1"
+          />
         </div>
 
         <div class="campo">
           <label for="requisitos">requisitos especificos</label>
-          <input id="requisitos" name="requisitos_especificos" [(ngModel)]="oferta.requisitos_especificos" />
+          <input 
+            id="requisitos" 
+            name="requisitos_especificos" 
+            [(ngModel)]="oferta.requisitos_especificos" 
+            required
+          />
         </div>
 
         <div class="campo">
           <label for="fechaReal">fecha realizacion</label>
-          <input id="fechaReal" name="fecha_realizacion" type="date" [(ngModel)]="oferta.fecha_realizacion" required />
+          <input 
+            id="fechaReal" 
+            name="fecha_realizacion" 
+            type="date" 
+            [(ngModel)]="oferta.fecha_realizacion" 
+            required 
+            [min]="fechaMinimaRealizacion"
+            (change)="onFechaRealizacionChange()"
+          />
         </div>
 
         <div class="campo">
           <label for="fechaLim">fecha limite</label>
-          <input id="fechaLim" name="fecha_limite" type="date" [(ngModel)]="oferta.fecha_limite" required />
+          <input 
+            id="fechaLim" 
+            name="fecha_limite" 
+            type="date" 
+            [(ngModel)]="oferta.fecha_limite" 
+            required 
+            [min]="fechaMinimaLimite"
+            (change)="onFechaLimiteChange()"
+          />
         </div>
 
-        <button type="submit" class="btn-registrar">Registrar oferta</button>
+        <button 
+          type="submit" 
+          class="btn-registrar"
+          [disabled]="!validarDatos()"
+          [class.btn-deshabilitado]="!validarDatos()"
+        >
+          Registrar oferta
+        </button>
       </form>
       
     </section>

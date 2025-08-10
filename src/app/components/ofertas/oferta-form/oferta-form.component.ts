@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { OfertaService, Oferta } from '../oferta.service';
@@ -13,13 +13,18 @@ type EstadoUI = 'form' | 'registrada' | 'publicada';
   templateUrl: './oferta-form.component.html',
   styleUrls: ['./oferta-form.component.css']
 })
-export class OfertaFormComponent {
+export class OfertaFormComponent implements OnInit {
   private servicio = inject(OfertaService);
 
   estado: EstadoUI = 'form';
 
   ultimaDescripcion = '';
   ultimaId?: number;
+
+  // Propiedades para validaciones de fecha
+  fechaActual: string = '';
+  fechaMinimaRealizacion: string = '';
+  fechaMinimaLimite: string = '';
 
   oferta: Oferta = {
     descripcion: '',
@@ -29,6 +34,63 @@ export class OfertaFormComponent {
     requisitos_especificos: '',
     fecha_limite: ''
   };
+
+  ngOnInit() {
+    this.inicializarFechas();
+  }
+
+  // Inicializa las fechas mínimas
+  private inicializarFechas() {
+    const hoy = new Date();
+    this.fechaActual = this.formatearFecha(hoy);
+    this.fechaMinimaRealizacion = this.fechaActual;
+    this.actualizarFechaMinimaLimite();
+  }
+
+  // Formatea fecha a YYYY-MM-DD
+  private formatearFecha(fecha: Date): string {
+    const year = fecha.getFullYear();
+    const month = String(fecha.getMonth() + 1).padStart(2, '0');
+    const day = String(fecha.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  // Actualiza la fecha mínima para la fecha límite
+  private actualizarFechaMinimaLimite() {
+    if (this.oferta.fecha_realizacion) {
+      this.fechaMinimaLimite = this.oferta.fecha_realizacion;
+      // Si la fecha límite actual es anterior a la nueva fecha mínima, la reseteamos
+      if (this.oferta.fecha_limite && this.oferta.fecha_limite < this.fechaMinimaLimite) {
+        this.oferta.fecha_limite = '';
+      }
+    } else {
+      this.fechaMinimaLimite = this.fechaActual;
+    }
+  }
+
+  // Valida la fecha de realización
+  onFechaRealizacionChange() {
+    this.actualizarFechaMinimaLimite();
+  }
+
+  // Valida la fecha límite
+  onFechaLimiteChange() {
+    // Solo actualizar la fecha mínima si es necesario
+  }
+
+  // Método para verificar si el formulario está completo y válido
+  validarDatos(): boolean {
+    return !!(
+      this.oferta.descripcion?.trim() &&
+      this.oferta.lugar?.trim() &&
+      this.oferta.cupos && this.oferta.cupos > 0 &&
+      this.oferta.requisitos_especificos?.trim() &&
+      this.oferta.fecha_realizacion &&
+      this.oferta.fecha_limite &&
+      this.oferta.fecha_realizacion >= this.fechaActual &&
+      this.oferta.fecha_limite >= this.fechaMinimaLimite
+    );
+  }
 
   // Normaliza a 'YYYY-MM-DD' (por si el value no viene en texto)
   private toYMD(value: any): string {
@@ -43,6 +105,11 @@ export class OfertaFormComponent {
   }
 
   publicarOferta() {
+    // Validar formulario antes de enviar
+    if (!this.validarDatos()) {
+      return;
+    }
+
     const payload: Oferta = {
       descripcion: this.oferta.descripcion?.trim() || '',
       lugar: this.oferta.lugar?.trim() || '',
@@ -81,5 +148,6 @@ export class OfertaFormComponent {
     };
     this.ultimaDescripcion = '';
     this.ultimaId = undefined;
+    this.actualizarFechaMinimaLimite();
   }
 }
