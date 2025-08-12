@@ -7,80 +7,69 @@
     <h2 class="titulo-form" *ngIf="estado === 'form'">Formulario de Oferta</h2>
     <h2 class="titulo-form" *ngIf="estado === 'registrada' || estado === 'publicada'">Oferta registrada</h2>
 
+    <!-- REGISTRAR -->
     <section class="panel" *ngIf="estado === 'form'">
       <h3 class="panel-title">Rellenar datos</h3>
 
-      <form class="oferta-form" (ngSubmit)="publicarOferta()">
+      <form class="oferta-form" (ngSubmit)="registrarOferta()">
         <div class="campo">
           <label for="descripcion">descripcion</label>
-          <input 
-            id="descripcion" 
-            name="descripcion" 
-            [(ngModel)]="oferta.descripcion" 
-            required 
-          />
-        </div>
-
-        <div class="campo">
-          <label for="lugar">lugar</label>
-          <input 
-            id="lugar" 
-            name="lugar" 
-            [(ngModel)]="oferta.lugar" 
-            required 
-          />
-        </div>
-
-        <div class="campo">
-          <label for="cupos">cupos</label>
-          <input 
-            id="cupos" 
-            name="cupos" 
-            type="number" 
-            [(ngModel)]="oferta.cupos" 
-            required 
-            min="1"
-          />
-        </div>
-
-        <div class="campo">
-          <label for="requisitos">requisitos especificos</label>
-          <input 
-            id="requisitos" 
-            name="requisitos_especificos" 
-            [(ngModel)]="oferta.requisitos_especificos" 
+          <input
+            id="descripcion"
+            name="descripcion"
+            type="text"
+            [(ngModel)]="oferta.descripcion"
             required
           />
         </div>
 
         <div class="campo">
-          <label for="fechaReal">fecha realizacion</label>
-          <input 
-            id="fechaReal" 
-            name="fecha_realizacion" 
-            type="date" 
-            [(ngModel)]="oferta.fecha_realizacion" 
-            required 
-            [min]="fechaMinimaRealizacion"
-            (change)="onFechaRealizacionChange()"
+          <label for="lugar">lugar</label>
+          <input
+            id="lugar"
+            name="lugar"
+            type="text"
+            [(ngModel)]="oferta.lugar"
+            required
           />
         </div>
 
         <div class="campo">
-          <label for="fechaLim">fecha limite</label>
-          <input 
-            id="fechaLim" 
-            name="fecha_limite" 
-            type="date" 
-            [(ngModel)]="oferta.fecha_limite" 
-            required 
-            [min]="fechaMinimaLimite"
-            (change)="onFechaLimiteChange()"
+          <label for="cupos">cupos</label>
+          <input
+            id="cupos"
+            name="cupos"
+            type="number"
+            min="1"
+            [(ngModel)]="oferta.cupos"
+            required
           />
         </div>
 
-        <button 
-          type="submit" 
+        <div class="campo">
+          <label for="requisitos">requisitos</label>
+          <input
+            id="requisitos"
+            name="requisitos"
+            type="text"
+            [(ngModel)]="oferta.requisitos"
+          />
+        </div>
+
+        <div class="campo">
+          <label for="fechaTerminoOferta">fecha limite</label>
+          <input
+            id="fechaTerminoOferta"
+            name="fechaTerminoOferta"
+            type="date"
+            [min]="fechaActual"
+            [(ngModel)]="oferta.fechaTerminoOferta"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
           class="btn-registrar"
           [disabled]="!validarDatos()"
           [class.btn-deshabilitado]="!validarDatos()"
@@ -88,20 +77,19 @@
           Registrar oferta
         </button>
       </form>
-      
-    </section>
-    <section class="panel panel-centro" *ngIf="estado === 'registrada'">
-      <button class="btn-publicar" (click)="confirmarPublicacion()">Publicar oferta</button>
     </section>
 
+    <!-- PUBLICAR -->
+    <section class="panel panel-centro" *ngIf="estado === 'registrada'">
+      <button class="btn-publicar" (click)="publicarOferta()">Publicar oferta</button>
+    </section>
+
+    <!-- CONFIRMACIÓN -->
     <section class="panel panel-centro" *ngIf="estado === 'publicada'">
       <div class="mensaje-publicada">
         la oferta de voluntariado <strong>{{ ultimaDescripcion || 'registrando' }}</strong> ha sido publicada
       </div>
 
-      <div class="acciones-final">
-        <button class="btn-registrar" (click)="nuevaOferta()">Registrar otra</button>
-      </div>
     </section>
   </main>
 </div>

@@ -9,24 +9,37 @@
     <section class="panel">
       <h3 class="panel-subtitle">NUEVAS OFERTAS</h3>
 
-      <div class="lista-ofertas">
-        <div class="item-oferta" *ngFor="let o of ofertas; let i = index">
-          <span class="oferta-nombre">#Oferta {{ i + 1 }}</span>
+      <div *ngIf="cargando">Cargando…</div>
+      <div *ngIf="!cargando && error" class="error">{{ error }}</div>
+
+      <div class="lista-ofertas" *ngIf="!cargando && !error">
+        <div
+          class="item-oferta"
+          *ngFor="let o of ofertas; trackBy: trackById; let i = index"
+        >
+          <span class="oferta-nombre">
+            #{{ i + 1 }} — {{ o.descripcion }}
+          </span>
           <button class="btn-ver" (click)="verOferta(o)">Ver oferta</button>
+        </div>
+
+        <div *ngIf="ofertas.length === 0" class="sin-ofertas">
+          No hay ofertas publicadas aún.
         </div>
       </div>
     </section>
   </main>
 
+  <!-- Detalle -->
   <div class="detalle-overlay" *ngIf="ofertaSeleccionada" (click)="cerrarDetalle()">
     <div class="detalle-card" (click)="$event.stopPropagation()">
       <button class="detalle-cerrar" (click)="cerrarDetalle()" aria-label="Cerrar">×</button>
 
-      <p><strong>Nombre:</strong> {{ ofertaSeleccionada.descripcion }}</p>
-      <p><strong>Área:</strong> {{ ofertaSeleccionada.lugar }}</p>
       <p><strong>Descripción:</strong> {{ ofertaSeleccionada.descripcion }}</p>
-      <p><strong>Horario:</strong> {{ formatFecha(ofertaSeleccionada.fecha_realizacion) }}</p>
-      <p><strong>Requisitos:</strong> {{ ofertaSeleccionada.requisitos_especificos || '—' }}</p>
+      <p><strong>Lugar:</strong> {{ ofertaSeleccionada.lugar }}</p>
+      <p><strong>Fecha de realización:</strong> {{ formatFecha(ofertaSeleccionada.fechaRealizacion) }}</p>
+      <p><strong>Postula hasta:</strong> {{ formatFecha(ofertaSeleccionada.fechaTerminoOferta) }}</p>
+      <p><strong>Requisitos:</strong> {{ ofertaSeleccionada.requisitos || '—' }}</p>
       <p><strong>Cupos:</strong> {{ ofertaSeleccionada.cupos }} voluntarios</p>
     </div>
   </div>

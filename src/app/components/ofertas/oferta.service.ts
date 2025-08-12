@@ -2,14 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export type Estado = 'Registrada' | 'Publicada' | 'Cerrada';
+
 export interface Oferta {
+  idOferta: number;
   descripcion: string;
   lugar: string;
-  fecha_realizacion: string;
+  fechaRealizacion?: string;     // la define el backend al publicar
+  fechaTerminoOferta: string;    // formato YYYY-MM-DD
+  requisitos?: string;
+  estado: Estado;
   cupos: number;
-  requisitos_especificos?: string;
-  fecha_limite: string;
 }
+
+// Para registrar no se envían: idOferta, estado ni fechaRealizacion
+export type NuevaOferta = Omit<Oferta, 'idOferta' | 'estado' | 'fechaRealizacion'>;
 
 @Injectable({
   providedIn: 'root'
@@ -19,19 +26,41 @@ export class OfertaService {
 
   constructor(private http: HttpClient) {}
 
-  // POST: Publicar oferta
-  publicarOferta(oferta: Oferta): Observable<{ message: string; id: number }> {
-    return this.http.post<{ message: string; id: number }>(this.apiUrl, {
-      descripcion: oferta.descripcion,
-      lugar: oferta.lugar,
-      fecha_realizacion: oferta.fecha_realizacion,
-      cupos: oferta.cupos,
-      requisitos_especificos: oferta.requisitos_especificos,
-      fecha_limite: oferta.fecha_limite
-    });
+  /** Paso 1: Registrar oferta (estado = 'Registrada', sin fechaRealizacion) */
+  registrarOferta(oferta: NuevaOferta): Observable<{
+    ok: boolean;
+    message: string;
+    idOferta: number;
+    oferta: Oferta;
+  }> {
+    return this.http.post<{
+      ok: boolean;
+      message: string;
+      idOferta: number;
+      oferta: Oferta;
+    }>(`${this.apiUrl}/registrar`, oferta);
   }
 
+  /** Paso 2: Publicar oferta (setea fechaRealizacion y estado = 'Publicada') */
+  publicarOferta(idOferta: number): Observable<{
+    ok: boolean;
+    message: string;
+    oferta: Oferta;
+  }> {
+    return this.http.post<{
+      ok: boolean;
+      message: string;
+      oferta: Oferta;
+    }>(`${this.apiUrl}/${idOferta}/publicar`, {});
+  }
+
+  /** Listar SOLO ofertas publicadas (para mostrarlas en el sistema) */
   getOfertas(): Observable<Oferta[]> {
     return this.http.get<Oferta[]>(this.apiUrl);
+  }
+
+  /** (Opcional) Listar todas para panel interno del coordinador */
+  getTodas(): Observable<Oferta[]> {
+    return this.http.get<Oferta[]>(`${this.apiUrl}/todas`);
   }
 }
