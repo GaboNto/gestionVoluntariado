@@ -26,7 +26,7 @@ export class OfertaService {
 
   constructor(private http: HttpClient) {}
 
-  /** Paso 1: Registrar oferta (estado = 'Registrada', sin fechaRealizacion) */
+  /** Registrar oferta (estado = 'Registrada', sin fechaRealizacion) */
   registrarOferta(oferta: NuevaOferta): Observable<{
     ok: boolean;
     message: string;
@@ -41,7 +41,7 @@ export class OfertaService {
     }>(`${this.apiUrl}/registrar`, oferta);
   }
 
-  /** Paso 2: Publicar oferta (setea fechaRealizacion y estado = 'Publicada') */
+  /** Publicar oferta (setea fechaRealizacion y estado = 'Publicada') */
   publicarOferta(idOferta: number): Observable<{
     ok: boolean;
     message: string;
@@ -54,12 +54,12 @@ export class OfertaService {
     }>(`${this.apiUrl}/${idOferta}/publicar`, {});
   }
 
-  /** Listar SOLO ofertas publicadas (para mostrarlas en el sistema) */
+  /** Listar ofertas publicadas */
   getOfertas(): Observable<Oferta[]> {
     return this.http.get<Oferta[]>(this.apiUrl);
   }
 
-  /** (Opcional) Listar todas para panel interno del coordinador */
+  /** Listar todas para panel interno del coordinador */
   getTodas(): Observable<Oferta[]> {
     return this.http.get<Oferta[]>(`${this.apiUrl}/todas`);
   }

@@ -9,9 +9,7 @@ import { OfertaListComponent } from './components/ofertas/oferta-list/oferta-lis
   standalone: true,
   imports: [
     RouterModule,
-    HttpClientModule,
-    OfertaFormComponent,
-    OfertaListComponent
+    HttpClientModule
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']

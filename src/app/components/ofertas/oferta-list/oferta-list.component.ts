@@ -44,17 +44,15 @@ export class OfertaListComponent implements OnInit {
     return o.idOferta;
   }
 
-  /** Formatea 'YYYY-MM-DD' o ISO a 'DD/MM/YYYY' (sin zona horaria local). */
+  /** Formatea 'YYYY-MM-DD' */
   formatFecha(f?: string) {
     if (!f) return '—';
-
-    // 'YYYY-MM-DD'
     if (/^\d{4}-\d{2}-\d{2}$/.test(f)) {
       const [y, m, d] = f.split('-');
       return `${d}/${m}/${y}`;
     }
 
-    // ISO 'YYYY-MM-DDTHH:mm:ss.sssZ' o sin Z
+    // ISO 'YYYY-MM-DDTHH:mm:ss.sssZ'
     const d = new Date(f);
     if (!isNaN(d.getTime())) {
       const dd = String(d.getUTCDate()).padStart(2, '0');
@@ -62,8 +60,6 @@ export class OfertaListComponent implements OnInit {
       const yy = d.getUTCFullYear();
       return `${dd}/${mm}/${yy}`;
     }
-
-    // Fallback
     return f;
   }
 }

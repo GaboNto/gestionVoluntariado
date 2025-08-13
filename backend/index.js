@@ -9,7 +9,7 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Conexión a MySQL (SE MANTIENE TAL CUAL)
+// Conexión a MySQL
 const db = mysql.createConnection({
   host: 'localhost',
   port: 3306,
@@ -26,14 +26,14 @@ db.connect((err) => {
   }
 });
 
-// Utilidad opcional para normalizar fechas si vinieran como DD/MM/YYYY -> YYYY-MM-DD
+// Normalizar fechas si vinieran como YYYY-MM-DD
 const fixDate = (d) => (d && typeof d === 'string' && d.includes('/'))
   ? d.split('/').reverse().join('-')
   : d;
 
 // -----------------------------
 // POST /api/ofertas/registrar
-// Crea oferta con estado='Registrada' y SIN fechaRealizacion (la pone el sistema al publicar)
+// Crea oferta con estado='Registrada'
 app.post('/api/ofertas/registrar', (req, res) => {
   console.log('Body recibido (registrar):', req.body);
 
@@ -84,13 +84,11 @@ app.post('/api/ofertas/registrar', (req, res) => {
   });
 });
 
-// Alias de compatibilidad (si tenías este endpoint antes)
 app.post('/api/registrar/oferta', (req, res) => {
   req.url = '/api/ofertas/registrar'; // redirige internamente
   app._router.handle(req, res);
 });
 
-// -----------------------------
 // POST /api/ofertas/:idOferta/publicar
 // Cambia estado a 'Publicada' y fija fechaRealizacion = NOW()
 app.post('/api/ofertas/:idOferta/publicar', (req, res) => {
@@ -123,7 +121,6 @@ app.post('/api/ofertas/:idOferta/publicar', (req, res) => {
   });
 });
 
-// -----------------------------
 // GET /api/ofertas
 // Devuelve SOLO las ofertas publicadas (para "mostrar en el sistema")
 app.get('/api/ofertas', (req, res) => {
@@ -142,7 +139,7 @@ app.get('/api/ofertas', (req, res) => {
 });
 
 // -----------------------------
-// (Opcional) GET /api/ofertas/todas  -> para panel interno del coordinador
+// GET /api/ofertas/todas  -> para panel interno del coordinador
 app.get('/api/ofertas/todas', (req, res) => {
   const sql = `SELECT * FROM oferta ORDER BY idOferta DESC`;
   db.query(sql, (err, rows) => {
