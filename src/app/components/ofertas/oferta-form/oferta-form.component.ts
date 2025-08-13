@@ -58,12 +58,12 @@ export class OfertaFormComponent implements OnInit {
     );
   }
 
-  // 👉 Método público para el template
+  // Metodo público para el template
   validarDatos(): boolean {
     return this.validarRegistro();
   }
 
-  /** Paso 1: Registrar (estado='Registrada', sin fechaRealizacion) */
+  /** Registrar (estado='Registrada', sin fechaRealizacion) */
   registrarOferta() {
     if (!this.validarRegistro()) {
       alert('Completa los campos obligatorios y verifica las fechas.');
@@ -92,14 +92,14 @@ export class OfertaFormComponent implements OnInit {
     });
   }
 
-  /** Paso 2: Publicar (setea fechaRealizacion y estado='Publicada') */
+  /** Publicar (setea fechaRealizacion y estado='Publicada') */
   publicarOferta() {
     if (!this.ultimaId) return;
 
     this.servicio.publicarOferta(this.ultimaId).subscribe({
       next: (res) => {
         this.estado = 'publicada';
-        this.fechaRealizacionAsignada = res.oferta.fechaRealizacion; // mostrará la fecha asignada por el backend
+        this.fechaRealizacionAsignada = res.oferta.fechaRealizacion;
       },
       error: (err) => {
         console.error(err);
