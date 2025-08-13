@@ -55,6 +55,7 @@ app.post('/api/ofertas/registrar', (req, res) => {
     VALUES (?, ?, ?, ?, ?, 'Registrada')
   `;
 
+  // Crear un arreglo (values) con datos en forma ordenada para agruparlos en una sola variable.
   const values = [
     descripcion,
     lugar,
@@ -63,12 +64,14 @@ app.post('/api/ofertas/registrar', (req, res) => {
     Number(cupos)
   ];
 
+
+  // inserta los datos en MySQL
   db.query(sql, values, (err, result) => {
     if (err) {
       console.error('MySQL:', err.code, err.sqlMessage);
       return res.status(500).json({ ok: false, error: err.code, detail: err.sqlMessage });
     }
-
+  // Consulta lo recién insertado para enviarlo a Angular.
     db.query('SELECT * FROM oferta WHERE idOferta = ?', [result.insertId], (e2, rows) => {
       if (e2) {
         console.error('MySQL:', e2.code, e2.sqlMessage);
@@ -83,7 +86,7 @@ app.post('/api/ofertas/registrar', (req, res) => {
     });
   });
 });
-
+ // redirige internamente la ruta /api/registrar/oferta a /api/ofertas/registrar
 app.post('/api/registrar/oferta', (req, res) => {
   req.url = '/api/ofertas/registrar'; // redirige internamente
   app._router.handle(req, res);
